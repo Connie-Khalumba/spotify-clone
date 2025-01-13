@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 import "./globals.css";
+import Sidebar from "@/components/Sidebar";
 
 // Import the Figtree font and define a single variable for it
 const figtreeFont = Figtree({
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${figtreeFont.variable} antialiased`}>
+        <Sidebar>
         {children}
+        </Sidebar>
       </body>
     </html>
   );
