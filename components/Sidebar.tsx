@@ -6,6 +6,7 @@ import { BiSearch } from "react-icons/bi";
 import { HiHome } from "react-icons/hi";
 import Box from "./Box";
 import SidebarItem from "./SidebarItem";
+import  Library from "./Library";
 
 interface SidebarProps {
    children: React.ReactNode; 
@@ -31,7 +32,7 @@ const Sidebar: React.FC<SidebarProps>  = ({
         }
     ], [pathname]);
     return (
-        <div className="flex h-full">
+        <div className="flex h-screen">
           <div
           className="hidden 
                      md:flex 
@@ -48,7 +49,8 @@ const Sidebar: React.FC<SidebarProps>  = ({
                 gap-y-4
                 px-5
                 py-4
-                ">
+                "
+                >
                     {routes.map((item) => (
                      <SidebarItem
                        key={item.label}
@@ -57,11 +59,13 @@ const Sidebar: React.FC<SidebarProps>  = ({
                     ))}
                 </div> 
             </Box>
-            <Box className="overflow-y-auto h-full">
-               Song Library
+            <Box className="overflow-y-auto h-full ">
+               <Library/>
             </Box>
-
           </div>
+          <main className="h-full flex-1 overflow-y-auto py-2">
+            {children}
+          </main>
         </div>
     );
 }
