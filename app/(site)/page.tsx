@@ -35,7 +35,7 @@ export default function Home() {
              mt-4
              "
              >
-             <ListItem/>
+             <ListItem image={""} name={""} href={""}/>
              </div>
         </div>
       </Header>

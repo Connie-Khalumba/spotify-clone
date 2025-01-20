@@ -145,7 +145,6 @@ const Header:React.FC<HeaderProps> = ({
                   </div>
                  </>
                 </div>
-
             </div>
           {children}
         </div>
