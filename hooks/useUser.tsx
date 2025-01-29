@@ -2,7 +2,7 @@ import { User } from "@supabase/auth-helpers-nextjs";
 import { useSessionContext, useUser as useSupaUser} from "@supabase/auth-helpers-react";
 import { createContext, useState, useEffect, useContext } from "react";
 
-import { Subscription, UserDetails } from "./types";
+import { Subscription, UserDetails } from "../types";
 
 
 type UserContextType = {
@@ -24,7 +24,7 @@ export interface Props {
 export const MyUserContextProvider = (props: Props) =>{
     const {
         session,
-        isLoading: isLandingUser,
+        isLoading: isLoadingUser,
         supabaseClient: supabase
     } = useSessionContext();
     const user = useSupaUser();
