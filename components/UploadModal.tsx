@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
@@ -6,11 +6,10 @@ import useUploadModal from "@/hooks/useUploadModal";
 
 import Modal from "./Modal";
 import Input from "./Input";
-
-
+import Button from "./Button";
 
 const UploadModal = () => {
-    const [isLoading, setIsLoading] = useState
+    const [isLoading, setIsLoading] = useState(false); // ✅ Fixed useState initialization
     const uploadModal = useUploadModal();
 
     const {
@@ -24,19 +23,32 @@ const UploadModal = () => {
          song: null,
          image: null,
        } 
-    })
+    });
 
     const onChange = (open: boolean) => {
         if (!open) {
           reset();
-            uploadModal.onClose();
+          uploadModal.onClose();
         }
-    }
-    
-    const onSubmit: SubmitHandler<FieldValues> = async (values) => {
-        // Upload to supabase
-    }
+    };
 
+    const onSubmit: SubmitHandler<FieldValues> = async (values) => {
+        setIsLoading(true);
+
+        try {
+            // TODO: Implement file upload to Supabase or another backend
+            console.log("Uploading...", values);
+
+            // Simulate success
+            setTimeout(() => {
+                setIsLoading(false);
+                uploadModal.onClose();
+            }, 2000);
+        } catch (error) {
+            console.error("Upload failed", error);
+            setIsLoading(false);
+        }
+    };
 
     return (
     <Modal
@@ -45,15 +57,48 @@ const UploadModal = () => {
       isOpen={uploadModal.isOpen}
       onChange={onChange}
     >
-        <form
-          onSubmit={handleSubmit(onSubmit)}
+        <form onSubmit={handleSubmit(onSubmit)}
+         className="flex flex-col gap-y-4"
         >
           <Input
             id="title"
             disabled={isLoading}
-            {...register('title', {required: true})}
+            {...register("title", { required: true })}
             placeholder="Song title"
           />
+          <Input
+            id="author"
+            disabled={isLoading}
+            {...register("author", { required: true })}
+            placeholder="Song author"
+          />
+          <div>
+            <div className="pb-1">
+                Select a song file
+            </div>
+           <Input
+                 id="song"
+                 type="file"
+                 accept=".mp3"
+                 disabled={isLoading}
+                 {...register("song", { required: true })}
+            />
+          </div>
+          <div>
+            <div className="pb-1">
+                Select an image
+            </div>
+           <Input
+                 id="image"
+                 type="file"
+                 accept="image/*"
+                 disabled={isLoading}
+                 {...register("image", { required: true })}
+            />
+          </div>
+          <Button disabled={isLoading} type="submit">
+            Create
+          </Button>
         </form>
     </Modal>
     );
