@@ -2,11 +2,14 @@
 
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
+import toast from "react-hot-toast";
+
 import useUploadModal from "@/hooks/useUploadModal";
 
 import Modal from "./Modal";
 import Input from "./Input";
 import Button from "./Button";
+
 
 const UploadModal = () => {
     const [isLoading, setIsLoading] = useState(false); // ✅ Fixed useState initialization
@@ -33,19 +36,13 @@ const UploadModal = () => {
     };
 
     const onSubmit: SubmitHandler<FieldValues> = async (values) => {
-        setIsLoading(true);
-
         try {
-            // TODO: Implement file upload to Supabase or another backend
-            console.log("Uploading...", values);
+            setIsLoading(true);
 
-            // Simulate success
-            setTimeout(() => {
-                setIsLoading(false);
-                uploadModal.onClose();
-            }, 2000);
+          
         } catch (error) {
-            console.error("Upload failed", error);
+            toast.error("something went wrong")
+        } finally {
             setIsLoading(false);
         }
     };
